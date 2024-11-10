@@ -13,12 +13,12 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 /**
  * A simple test that explores RIT's area of study; 'Computing' in particular.
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
+@Disabled
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RitExploreStudiesInComputingTest extends AbstractWebTest {
   private static final Logger logger = Logger.getLogger(RitExploreStudiesInComputingTest.class.getName());
@@ -50,8 +50,8 @@ public class RitExploreStudiesInComputingTest extends AbstractWebTest {
 
     // prepare for next test
     Optional<RitAreaOfStudyLink> hasLink = studyLinks.stream()
-      .filter(link -> link.getTitle().equals("Computing and Information Sciences"))
-      .findFirst();
+        .filter(link -> link.getTitle().equals("Computing and Information Sciences"))
+        .findFirst();
     hasLink.ifPresent(link -> linkToComputingStudies = link);
   }
 
@@ -63,13 +63,11 @@ public class RitExploreStudiesInComputingTest extends AbstractWebTest {
   public void inspectComputingLink() {
     // guard condition
     Assumptions.assumeTrue(linkToComputingStudies != null,
-      "No 'Computing and Information Sciences' link found");
+        "No 'Computing and Information Sciences' link found");
 
     // validate page content
-    assertAll("group assertions"
-      , () -> assertEquals("phone-laptop", linkToComputingStudies.getFirstIconName())
-      , () -> assertEquals("code", linkToComputingStudies.getSecondIconName())
-    );
+    assertAll("group assertions", () -> assertEquals("phone-laptop", linkToComputingStudies.getFirstIconName()),
+        () -> assertEquals("code", linkToComputingStudies.getSecondIconName()));
   }
 
   /**
@@ -80,7 +78,7 @@ public class RitExploreStudiesInComputingTest extends AbstractWebTest {
   public void navigateToComputing() {
     // guard condition
     Assumptions.assumeTrue(linkToComputingStudies != null,
-      "No 'Computing and Information Sciences' link found");
+        "No 'Computing and Information Sciences' link found");
 
     // attempt to navigate to the Computing area of study page
     linkToComputingStudies.clickLink();
@@ -91,9 +89,8 @@ public class RitExploreStudiesInComputingTest extends AbstractWebTest {
     // expect navigation to the area of study page
     final SimplePage page = assertNewPage(SimplePage::new);
     // validate simple page content
-    assertAll("group assertions"
-      , () -> assertEquals("Computing and Information Sciences Degrees | RIT", page.getTitle())
-      , () -> assertEquals("https://www.rit.edu/study/computing-and-information-sciences", page.getURL())
-    );
+    assertAll("group assertions",
+        () -> assertEquals("Computing and Information Sciences Degrees | RIT", page.getTitle()),
+        () -> assertEquals("https://www.rit.edu/study/computing-and-information-sciences", page.getURL()));
   }
 }

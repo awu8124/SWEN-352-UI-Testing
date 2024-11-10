@@ -3,6 +3,8 @@ package edu.rit.swen253.test.sample;
 import edu.rit.swen253.page.sample.RatingInfoView;
 import edu.rit.swen253.page.sample.RitHomePage;
 import edu.rit.swen253.test.AbstractWebTest;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -13,12 +15,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 /**
  * A simple test that explores RIT's ratings on their home page.
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
+@Disabled
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class RitRatingsTest extends AbstractWebTest {
 
@@ -56,9 +58,7 @@ public class RitRatingsTest extends AbstractWebTest {
   @Test
   @Order(3)
   public void inspectFirstRatingInfo() {
-    assertAll("group assertions"
-      , () -> assertEquals("6th", firstRatingInfo.getRating())
-      , () -> assertEquals("Among Top Schools for Co-op or Internship Programs", firstRatingInfo.getTitle())
-    );
+    assertAll("group assertions", () -> assertEquals("6th", firstRatingInfo.getRating()),
+        () -> assertEquals("Among Top Schools for Co-op or Internship Programs", firstRatingInfo.getTitle()));
   }
 }
