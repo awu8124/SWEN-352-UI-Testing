@@ -5,6 +5,8 @@ import edu.rit.swen253.page.youtube.YouTubeSearchResultsPage;
 import edu.rit.swen253.page.youtube.YouTubeVideoPage;
 import edu.rit.swen253.test.AbstractWebTest;
 import edu.rit.swen253.utils.SeleniumUtils;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
