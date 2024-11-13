@@ -2,6 +2,7 @@ package edu.rit.swen253.test.youtube;
 
 import edu.rit.swen253.page.youtube.YouTubeHomePage;
 import edu.rit.swen253.page.youtube.YouTubeSearchResultsPage;
+import edu.rit.swen253.page.youtube.YouTubeVideoPage;
 import edu.rit.swen253.test.AbstractWebTest;
 import edu.rit.swen253.utils.SeleniumUtils;
 import org.junit.jupiter.api.MethodOrderer;
@@ -23,11 +24,11 @@ public class YouTubeSearchTest extends AbstractWebTest {
     public void testSearchAndNavigate() {
         WebDriver driver = SeleniumUtils.getDriver();
 
-        // Navigate to YouTube and create YouTubeHomePage
+        // Use AbstractWebTest method to navigate to YouTube and create YouTubeHomePage
         YouTubeHomePage homePage = navigateToPage("https://www.youtube.com", YouTubeHomePage::new);
         PageFactory.initElements(driver, homePage);
 
-        // Perform the search
+        // Perform search
         homePage.search("page object model");
 
         // Create YouTubeSearchResultsPage after search is performed
@@ -38,15 +39,19 @@ public class YouTubeSearchTest extends AbstractWebTest {
         resultsPage.logResults();
         resultsPage.clickFirstResult();
 
-        // Wait to makee sure the page loads before continuing
+        // Wait for video page to load
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.titleContains("Page Object"));
+        wait.until(ExpectedConditions.urlContains("watch?v="));
 
-        // Validate navigation successs by checking if the page title contains
-        // part of the expected title
-        String pageTitle = driver.getTitle();
+        // Create the YouTubeVideoPage object
+        YouTubeVideoPage videoPage = assertNewPage(YouTubeVideoPage::new);
+        PageFactory.initElements(driver, videoPage);
+
+        // Validate the video page title
+        String pageTitle = videoPage.getPageTitle();
         if (!pageTitle.toLowerCase().contains("page object")) {
             throw new AssertionError("The page title does not contain 'Page Object'. Actual title: " + pageTitle);
         }
+        System.out.println("Navigated to video page with title: " + pageTitle);
     }
 }
