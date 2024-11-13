@@ -4,6 +4,9 @@ import edu.rit.swen253.page.AbstractPage;
 import edu.rit.swen253.utils.SeleniumUtils;
 import org.openqa.selenium.support.PageFactory;
 
+/**
+ * Page object for the YouTube video page
+ */
 public class YouTubeVideoPage extends AbstractPage {
 
     public YouTubeVideoPage() {

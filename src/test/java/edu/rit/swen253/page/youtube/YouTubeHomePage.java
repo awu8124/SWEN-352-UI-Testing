@@ -5,6 +5,9 @@ import edu.rit.swen253.utils.SeleniumUtils;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * Page object for the YouTube homepage
+ */
 public class YouTubeHomePage extends AbstractPage {
 
     @FindBy(name = "search_query")
