@@ -1,63 +1,30 @@
-package test.java.edu.rit.swen253.page.wikipedia;
+package edu.rit.swen253.page.wikipedia;
 
 import edu.rit.swen253.page.AbstractPage;
-import edu.rit.swen253.utils.DomElement;
-import edu.rit.swen253.utils.HtmlUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-
-import java.util.List;
-import java.util.logging.Logger;
-
-import static org.junit.jupiter.api.Assertions.fail;
+import edu.rit.swen253.page.PageFactory;
+import edu.rit.swen253.utils.SeleniumUtils;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class WikipediaHomePage extends AbstractPage {
-    private static final Logger logger = Logger.getLogger(WikipediaHomePage.class.getName());
-  
-    /**
-     * A finder to extract the main body content.
-     * WARN: this is fragile code
-     */
-    private static final By MAIN_CONTENT_FINDER = By.cssSelector("main > div > div.field--name-field-content");
-    
-    private DomElement mainContentPanel;
-  
+
+    @FindBy(id = "searchInput")
+    private WebElement searchInput;
+
     public WikipediaHomePage() {
-      super();
-      // validate basic page structure
-      try {
-        mainContentPanel = findOnPage(MAIN_CONTENT_FINDER);
-      } catch (TimeoutException e) {
-        fail("Main content panel not found");
-      }
+        SeleniumUtils.getDriver().get("https://www.wikipedia.org/");
+        // Wait for video page to load
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.titleContains("Wikipedia"));
     }
-  
-    // public List<RitAreaOfStudyLink> getStudyLinks() {
-    //   // the Ratings panel is in the fifth <div> of the main content
-    //   // WARN: this is fragile code
-    //   return mainContentPanel.findChildBy(By.xpath("div[7]"))
-    //     // the statistics columns are organized in an unordered list embedded in a layout div
-    //     .findChildBy(By.cssSelector("div.row ul"))
-    //     // extract each statistics columns
-    //     .findChildrenBy(By.cssSelector("li > div.card"))
-    //     .stream()
-    //     // build a Rating Info view object for each of these divs
-    //     .map(RitAreaOfStudyLink::new)
-    //     .toList();
-    // }
-  
-    // public List<RatingInfoView> getRatingViews() {
-    //   // the Ratings panel is in the fifth <div> of the main content
-    //   // WARN: this is fragile code
-    //   return mainContentPanel.findChildBy(By.xpath("div[5]"))
-    //     // the statistics columns are organized in a layout div
-    //     .findChildBy(By.cssSelector("div.row"))
-    //     // extract each statistics columns
-    //     .findChildrenBy(By.cssSelector("div.col-statistic"))
-    //     .stream()
-    //     // build a Rating Info view object for each of these divs
-    //     .map(RatingInfoView::new)
-    //     .toList();
-    // }
+
+    public void enterSearchPhrase(String phrase){
+        searchInput.sendKeys(phrase);
+        searchInput.sendKeys(Keys.RETURN);    
+    }
+
   }
   
