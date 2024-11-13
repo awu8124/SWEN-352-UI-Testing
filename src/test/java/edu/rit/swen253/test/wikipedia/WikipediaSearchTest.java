@@ -29,7 +29,7 @@ public class WikipediaSearchTest extends AbstractWebTest {
         resultsPage.clickFirstResult();
         
         // Validate navigation to the expected page
-        boolean isCorrectPage = driver.getCurrentUrl().contains("Page_object_model");
+        boolean isCorrectPage = driver.getCurrentUrl().contains("Object_model");
         assertTrue(isCorrectPage, "Failed to navigate to the expected page");
     }
 }

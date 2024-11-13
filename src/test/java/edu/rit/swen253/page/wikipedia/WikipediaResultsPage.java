@@ -17,6 +17,8 @@ public class WikipediaResultsPage extends AbstractPage{
         PageFactory.initElements(SeleniumUtils.getDriver(), this);
     }
 
+    /* Method to click the first result on the page
+     */
     public void clickFirstResult() {
         if (!searchResults.isEmpty()) {
             searchResults.get(0).click();
@@ -25,6 +27,9 @@ public class WikipediaResultsPage extends AbstractPage{
         }
     }
 
+    /*
+     * Method to log the results of the search. Takes the title and URL of each result.
+     */
     public void  logResults(){
         for (WebElement result : searchResults) {
             try {
