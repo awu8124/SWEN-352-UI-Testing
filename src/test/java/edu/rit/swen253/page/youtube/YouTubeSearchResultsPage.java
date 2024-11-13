@@ -10,6 +10,9 @@ import edu.rit.swen253.utils.SeleniumUtils;
 
 import java.util.List;
 
+/**
+ * Page object for the YouTube search results page
+ */
 public class YouTubeSearchResultsPage extends AbstractPage {
 
     @FindBy(tagName = "ytd-video-renderer")
